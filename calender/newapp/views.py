@@ -9,11 +9,14 @@ import calendar
 from .models import *
 from .utils import Calendar
 from .forms import EventForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import logout, authenticate, login
 
 def index(request):
     return HttpResponse('hello')
 
-class CalendarView(generic.ListView):
+class CalendarView(generic.ListView):       
     model = Event
     template_name = 'cal/calendar.html'
 
@@ -58,3 +61,4 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('newapp:calendar'))
     return render(request, 'cal/event.html', {'form': form})
+
